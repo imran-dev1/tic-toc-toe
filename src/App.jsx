@@ -1,11 +1,20 @@
-import React from 'react';
+import Board from "./Board";
+import History from "./History";
 
-const App = () => {
-  return (
-    <div>
-      <h1 className='text-3xl underline font-bold'>Tic Toc Toe</h1>
-    </div>
-  );
+const Game = () => {
+   return (
+      <div className="h-screen flex justify-center items-center">
+         <h2></h2>
+         <div className=" p-20 shadow-lg flex  gap-5">
+            <div className="flex flex-col gap-4">
+               <Board />
+            </div>
+            <div>
+               <History />
+            </div>
+         </div>
+      </div>
+   );
 };
 
-export default App;
+export default Game;
