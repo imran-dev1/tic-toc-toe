@@ -39,6 +39,11 @@ const Game = () => {
    } else {
       status = `Next Player: ${isXNext ? "X" : "O"}`;
    }
+
+   //Reset Game handler
+   const resetGame = () => { 
+      setSquares(Array(9).fill(null))
+   }
    return (
       <div className="h-screen flex justify-center items-center">
          <div className=" bg-black/35 backdrop-blur-md p-20 flex gap-5 border border-purple-900 border-4 rounded-lg text-white">
@@ -51,7 +56,7 @@ const Game = () => {
                   winner={winner}
                   status={status}
                />
-                {winner && <button className="">Play Again</button>}
+                {winner && <button className="p-1 mt-5 bg-red-500 shadow-2xl" onClick={resetGame}>Play Again</button>}
             </div>
            
             <div>
