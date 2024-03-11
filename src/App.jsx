@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Board from "./Board";
-import History from "./History";
 import ReactConfetti from "react-confetti";
+import logo from "./assets/images/tic-tac-toe-logo.svg"
 
 const Game = () => {
    const [squares, setSquares] = useState(Array(9).fill(null));
@@ -37,7 +37,9 @@ const Game = () => {
    let status;
    if (winner) {
       status = `Winner: ${winner}`;
-   } else {
+   } else if(squares.every((square) => square !== null)){
+      status = "Match Draw! Please try again."
+   }else {
       status = `Next Player: ${isXNext ? "X" : "O"}`;
    }
 
@@ -46,8 +48,9 @@ const Game = () => {
       setSquares(Array(9).fill(null));
    };
    return (
-      <div className="h-screen flex justify-center items-center">
-         <div className=" bg-black/5 backdrop-blur-md p-10 md:p-20 flex gap-5 rounded-lg text-white">
+      <div className="h-screen flex justify-start items-center flex-col pt-20 md:p-40">
+         <img className=" w-3/4 md:w-96" src={logo} alt="logo"/>
+         <div className="p-6 md:p-20 flex gap-5 rounded-lg text-white">
             <div className="flex items-center flex-col gap-4">
                <Board
                   squares={squares}
@@ -68,7 +71,7 @@ const Game = () => {
                )}
                {squares.every((square) => square !== null) && !winningLines ? (
                   <button
-                     className="p-3 rounded-md mt-5 bg-pink-700 shadow-2xl"
+                     className="p-5 text-xl uppercase tracking-widest rounded-md mt-5 bg-pink-700 shadow-2xl w-52"
                      onClick={resetGame}
                   >
                      Play Again
