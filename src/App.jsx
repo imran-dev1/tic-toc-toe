@@ -47,8 +47,8 @@ const Game = () => {
    };
    return (
       <div className="h-screen flex justify-center items-center">
-         <div className=" bg-black/35 backdrop-blur-md p-20 flex gap-5 border border-purple-900 border-4 rounded-lg text-white">
-            <div className="flex flex-col gap-4">
+         <div className=" bg-black/5 backdrop-blur-md p-10 md:p-20 flex gap-5 rounded-lg text-white">
+            <div className="flex items-center flex-col gap-4">
                <Board
                   squares={squares}
                   setSquares={setSquares}
@@ -60,18 +60,25 @@ const Game = () => {
                />
                {winner && (
                   <button
-                     className="p-3 rounded-md mt-5 bg-purple-600 shadow-2xl"
+                     className="p-5 text-xl uppercase tracking-widest rounded-md mt-5 bg-pink-700 shadow-2xl w-52"
                      onClick={resetGame}
                   >
                      Play Again
                   </button>
                )}
-            </div>
-
-            <div>
-               <History />
+               {squares.every((square) => square !== null) && !winningLines ? (
+                  <button
+                     className="p-3 rounded-md mt-5 bg-pink-700 shadow-2xl"
+                     onClick={resetGame}
+                  >
+                     Play Again
+                  </button>
+               ) : (
+                  ""
+               )}
             </div>
          </div>
+
          {winner && <ReactConfetti />}
       </div>
    );

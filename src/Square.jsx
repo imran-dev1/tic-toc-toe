@@ -6,7 +6,7 @@ const Square = ({ handleClick, index, squares, winner, isSquareWinner }) => {
       <button
          className={`${
             winner && isSquareWinner ? "winner" : ""
-         } h-20 w-20 shadow-sm border border-[#64489c] p-5 rounded-md text-2xl`}
+         } h-16 w-16 md:h-48 md:w-48 shadow-s bg-[#39167f] p-5 rounded-md text-2xl square`}
          onClick={() => handleClick(index)}
       >
          {squares[index] === "X" ? (
