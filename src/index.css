@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.winner {
+   box-shadow: 0 0 1px 3px #fff;
+}

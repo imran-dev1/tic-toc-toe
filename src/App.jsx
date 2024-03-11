@@ -27,12 +27,13 @@ const Game = () => {
             squares[b] === squares[a] &&
             squares[c] === squares[a]
          ) {
-            return squares[a];
+            return { winner: squares[a], line: winningLines[index] };
          }
       }
       return null;
    };
-   const winner = calculateWinner(squares);
+   const winner = calculateWinner(squares)?.winner;
+   const winningLines = calculateWinner(squares)?.line;
    let status;
    if (winner) {
       status = `Winner: ${winner}`;
@@ -41,9 +42,9 @@ const Game = () => {
    }
 
    //Reset Game handler
-   const resetGame = () => { 
-      setSquares(Array(9).fill(null))
-   }
+   const resetGame = () => {
+      setSquares(Array(9).fill(null));
+   };
    return (
       <div className="h-screen flex justify-center items-center">
          <div className=" bg-black/35 backdrop-blur-md p-20 flex gap-5 border border-purple-900 border-4 rounded-lg text-white">
@@ -55,10 +56,18 @@ const Game = () => {
                   setIsXNext={setIsXNext}
                   winner={winner}
                   status={status}
+                  winningLines={winningLines}
                />
-                {winner && <button className="p-1 mt-5 bg-red-500 shadow-2xl" onClick={resetGame}>Play Again</button>}
+               {winner && (
+                  <button
+                     className="p-3 rounded-md mt-5 bg-purple-600 shadow-2xl"
+                     onClick={resetGame}
+                  >
+                     Play Again
+                  </button>
+               )}
             </div>
-           
+
             <div>
                <History />
             </div>
