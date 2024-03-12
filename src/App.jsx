@@ -81,7 +81,7 @@ const Game = () => {
                )}
             </div>
          </div>
-
+<p className=" text-slate-400 tracking-widest">Designed by Imran</p>
          {winner && <ReactConfetti />}
       </div>
    );
