@@ -2,7 +2,7 @@
 
 Welcome to Tic Tac Toe! This project is a fun and interactive implementation of the classic Tic Tac Toe game using React. With interactive animations and sound effects, playing Tic Tac Toe becomes an even more enjoyable experience.
 
-[Live Site](https://tic-tac-toe-fun-gaming.vercel.app/)
+[Live Site](https://tic-tac-toe-fun-gaming.vercel.app/){target="_blank"}
 
 ![Image Alt text](/public/tac-tac-toe-ss.png)
 
