@@ -6,37 +6,27 @@ import gameOver from "./assets/sound/game-over.mp3";
 import gameTie from "./assets/sound/game-over-tie.mp3";
 import cheeringSound from "./assets/sound/crowd-cheering.mp3";
 
-const Board = ({
-   squares,
-   setSquares,
-   isXNext,
-   setIsXNext,
-   winner,
-   status,
-   winningLines,
-}) => {
-   const [playNoteHigh] = useSound(noteHigh,{ volume: 0.25 });
-   const [playNoteLow] = useSound(noteLow,{ volume: 0.25 });
+const Board = ({ squares, isXNext, onPlay, winner, status, winningLines }) => {
+   const [playNoteHigh] = useSound(noteHigh, { volume: 0.25 });
+   const [playNoteLow] = useSound(noteLow, { volume: 0.25 });
    const [playGameOver] = useSound(gameOver);
    const [playGameTie] = useSound(gameTie);
-   const [playCheeringSound] = useSound(cheeringSound,{ volume: 0.25 });
+   const [playCheeringSound] = useSound(cheeringSound, { volume: 0.25 });
 
    //Handle Square Click
    const handleClick = (index) => {
       if (squares[index] || winner) {
          return;
       }
-      const copySquares = squares.slice();
+      const nextSquares = squares.slice();
       if (isXNext) {
-         copySquares[index] = "X";
+         nextSquares[index] = "X";
          playNoteHigh();
       } else {
-         copySquares[index] = "O";
+         nextSquares[index] = "O";
          playNoteLow();
       }
-
-      setIsXNext(!isXNext);
-      setSquares(copySquares);
+      onPlay(nextSquares);
    };
 
    const isSquareWinner = (index) => {
@@ -44,11 +34,11 @@ const Board = ({
    };
 
    if (winner) {
-      playGameOver()
+      playGameOver();
       playCheeringSound();
    }
    if (squares.every((square) => square !== null) && !winningLines) {
-      playGameTie()
+      playGameTie();
    }
 
    return (

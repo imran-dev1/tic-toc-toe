@@ -1,11 +1,20 @@
 import { useState } from "react";
 import Board from "./Board";
+import History from "./History";
 import ReactConfetti from "react-confetti";
-import logo from "./assets/images/tic-tac-toe-logo.svg"
+import logo from "./assets/images/tic-tac-toe-logo.svg";
 
 const Game = () => {
-   const [squares, setSquares] = useState(Array(9).fill(null));
+   const [history, setHistory] = useState([Array(9).fill(null)]);
    const [isXNext, setIsXNext] = useState(true);
+
+   const currentSquares = history[history.length - 1];
+   console.log(currentSquares);
+
+   const handlePlay = (nextSquares) => {
+      setIsXNext(!isXNext);
+      setHistory([...history, nextSquares]);
+   };
 
    //Winner Calculation
    const calculateWinner = (squares) => {
@@ -32,31 +41,30 @@ const Game = () => {
       }
       return null;
    };
-   const winner = calculateWinner(squares)?.winner;
-   const winningLines = calculateWinner(squares)?.line;
+   const winner = calculateWinner(currentSquares)?.winner;
+   const winningLines = calculateWinner(currentSquares)?.line;
    let status;
    if (winner) {
       status = `Winner: ${winner}`;
-   } else if(squares.every((square) => square !== null)){
-      status = "Match Draw! Please try again."
-   }else {
+   } else if (currentSquares.every((square) => square !== null)) {
+      status = "Match Draw! Please try again.";
+   } else {
       status = `Next Player: ${isXNext ? "X" : "O"}`;
    }
 
    //Reset Game handler
    const resetGame = () => {
-      setSquares(Array(9).fill(null));
+      setHistory([Array(9).fill(null)]);
    };
    return (
       <div className="h-screen flex justify-start items-center flex-col pt-20 md:p-40">
-         <img className=" w-3/4 md:w-96" src={logo} alt="logo"/>
+         <img className=" w-3/4 md:w-96" src={logo} alt="logo" />
          <div className="p-6 md:p-20 flex gap-5 rounded-lg text-white">
             <div className="flex items-center flex-col gap-4">
                <Board
-                  squares={squares}
-                  setSquares={setSquares}
+                  squares={currentSquares}
                   isXNext={isXNext}
-                  setIsXNext={setIsXNext}
+                  onPlay={handlePlay}
                   winner={winner}
                   status={status}
                   winningLines={winningLines}
@@ -69,7 +77,7 @@ const Game = () => {
                      Play Again
                   </button>
                )}
-               {squares.every((square) => square !== null) && !winningLines ? (
+               {currentSquares.every((square) => square !== null) && !winningLines ? (
                   <button
                      className="p-5 text-xl uppercase tracking-widest rounded-md mt-5 bg-pink-700 shadow-2xl w-52"
                      onClick={resetGame}
@@ -80,8 +88,11 @@ const Game = () => {
                   ""
                )}
             </div>
+            <div>
+               <History />
+            </div>
          </div>
-<p className=" text-slate-400 tracking-widest">Designed by Imran</p>
+         <p className=" text-slate-400 tracking-widest">Designed by Imran</p>
          {winner && <ReactConfetti />}
       </div>
    );
