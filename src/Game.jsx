@@ -7,13 +7,15 @@ import logo from "./assets/images/tic-tac-toe-logo.svg";
 const Game = () => {
    const [history, setHistory] = useState([Array(9).fill(null)]);
    const [isXNext, setIsXNext] = useState(true);
+   const [currentMove, setCurrentMove] = useState(0);
 
-   const currentSquares = history[history.length - 1];
-   console.log(currentSquares);
+   const currentSquares = history[currentMove];
 
    const handlePlay = (nextSquares) => {
       setIsXNext(!isXNext);
-      setHistory([...history, nextSquares]);
+      const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+      setHistory(nextHistory);
+      setCurrentMove(nextHistory.length - 1);
    };
 
    //Winner Calculation
@@ -55,11 +57,20 @@ const Game = () => {
    //Reset Game handler
    const resetGame = () => {
       setHistory([Array(9).fill(null)]);
+      setCurrentMove(0)
+      setIsXNext(true)
    };
+
+   //History handler
+   const moveTo = (move) => {
+      setCurrentMove(move);
+      setIsXNext(move % 2 === 0);
+   };
+
    return (
-      <div className="h-screen flex justify-start items-center flex-col pt-20 md:p-40">
+      <div className="flex justify-start items-center flex-col pt-10 md:p-20 pb-10">
          <img className=" w-3/4 md:w-96" src={logo} alt="logo" />
-         <div className="p-6 md:p-20 flex gap-5 rounded-lg text-white">
+         <div className="p-6 md:p-20 flex flex-col md:flex-row gap-16 rounded-lg text-white">
             <div className="flex items-center flex-col gap-4">
                <Board
                   squares={currentSquares}
@@ -77,7 +88,8 @@ const Game = () => {
                      Play Again
                   </button>
                )}
-               {currentSquares.every((square) => square !== null) && !winningLines ? (
+               {currentSquares.every((square) => square !== null) &&
+               !winningLines ? (
                   <button
                      className="p-5 text-xl uppercase tracking-widest rounded-md mt-5 bg-pink-700 shadow-2xl w-52"
                      onClick={resetGame}
@@ -88,11 +100,18 @@ const Game = () => {
                   ""
                )}
             </div>
-            <div>
-               <History />
-            </div>
+            {history.length > 1 && (
+               <div>
+                  <h3 className="text-2xl md:text-3xl mb-9 text-center">
+                     History
+                  </h3>
+                  <History history={history} moveTo={moveTo} />
+               </div>
+            )}
          </div>
-         <p className=" text-slate-400 tracking-widest">Designed by Imran</p>
+         <p className=" text-slate-400 tracking-widest mt-6">
+            Designed by Imran
+         </p>
          {winner && <ReactConfetti />}
       </div>
    );

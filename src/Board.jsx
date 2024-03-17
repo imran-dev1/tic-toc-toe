@@ -43,7 +43,7 @@ const Board = ({ squares, isXNext, onPlay, winner, status, winningLines }) => {
 
    return (
       <>
-         <h3 className="text-3xl md:text-5xl mb-5 text-center">{status}</h3>
+         <h3 className="text-2xl md:text-3xl mb-5 text-center">{status}</h3>
          <div className="flex gap-4 flex-col">
             <div className="grid  grid-rows-3 grid-cols-3 gap-4">
                {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
