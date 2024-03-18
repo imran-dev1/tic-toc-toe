@@ -5,7 +5,7 @@ const History = ({ history, moveTo }) => {
       if (move > 0) {
          return (
             <li
-               className="py-1 text-center px-10 text-lg mb-2 bg-[#718562] hover:bg-[#5b6c4e] rounded cursor-pointer"
+               className="py-1 text-center px-10 text-lg mb-2 bg-[#be185d] hover:bg-[#92385d] rounded cursor-pointer"
                key={move}
                onClick={() => moveTo(move)}
             >
