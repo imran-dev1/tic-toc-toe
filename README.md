@@ -4,7 +4,9 @@ Welcome to Tic Tac Toe! This project is a fun and interactive implementation of 
 
 [Live Site](https://tic-tac-toe-fun-gaming.vercel.app/)
 
-![Image Alt text](/public/tac-tac-toe-ss.png)
+![Image Alt text](/public/history.png)
+![Image Alt text](/public/match-draw.png)
+![Image Alt text](/public/winning-celebration.png)
 
 ## Features
 
